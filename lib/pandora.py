@@ -28,39 +28,33 @@ class Pandora(object):
    def click_str(self, button):
       return "$('%s').click()" % button
 
+   def eval(self, expr):
+      return self.tab.send_command("Runtime.evaluate", expression=expr)
+
    def play(self):
-      url = "javascript:" + self.click_str(self.SEL_PLAY)
-      self.tab.send_command("Page.navigate", url=url)
+      self.eval(self.click_str(self.SEL_PLAY))
 
    def pause(self):
-      url = "javascript:" + self.click_str(self.SEL_PAUSE)
-      self.tab.send_command("Page.navigate", url=url)
+      self.eval(self.click_str(self.SEL_PAUSE))
 
    def play_pause(self):
-      play_url = self.click_str(self.SEL_PLAY)
-      pause_url = self.click_str(self.SEL_PAUSE)
-      url = "javascript:$('%s:visible')[0] ? %s : %s" % \
-            (self.SEL_PLAY, play_url, pause_url)
-      self.tab.send_command("Page.navigate", url=url)
+      play = self.click_str(self.SEL_PLAY)
+      pause = self.click_str(self.SEL_PAUSE)
+      self.eval("$('%s:visible')[0] ? %s : %s" % (self.SEL_PLAY, play, pause))
 
    def skip(self):
-      url = "javascript:" + self.click_str(self.SEL_SKIP)
-      self.tab.send_command("Page.navigate", url=url)
+      self.eval(self.click_str(self.SEL_SKIP))
 
    def is_playing(self):
-      expr = "$('%s:visible')[0]?false:true" % self.SEL_PLAY
-      r = self.tab.send_command("Runtime.evaluate", expression=expr)
+      r = self.eval("$('%s:visible')[0]?false:true" % self.SEL_PLAY)
       return r["result"]["result"]["value"]
 
    def is_paused(self):
-      expr = "$('%s:visible')[0]?false:true" % self.SEL_PAUSE
-      r = self.tab.send_command("Runtime.evaluate", expression=expr)
+      r = self.eval("$('%s:visible')[0]?false:true" % self.SEL_PAUSE)
       return r["result"]["result"]["value"]
 
    def thumb_up(self):
-      expr = self.click_str(self.SEL_THUMB_UP)
-      self.tab.send_command("Runtime.evaluate", expression=expr)
+      self.eval(self.click_str(self.SEL_THUMB_UP))
 
    def thumb_down(self):
-      expr = self.click_str(self.SEL_THUMB_DOWN)
-      self.tab.send_command("Runtime.evaluate", expression=expr)
+      self.eval(self.click_str(self.SEL_THUMB_DOWN))
