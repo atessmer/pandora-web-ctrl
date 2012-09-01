@@ -7,6 +7,8 @@ class Pandora(object):
    SEL_PLAY = "#playbackControl .playButton"
    SEL_PAUSE = "#playbackControl .pauseButton"
    SEL_SKIP = "#playbackControl .skipButton"
+   SEL_THUMB_UP = "#playbackControl .thumbUpButton"
+   SEL_THUMB_DOWN = "#playbackControl .thumbDownButton"
 
    def __init__(self, host='localhost', port=9222):
       self.shell = remote_webkit_debug.ChromeShell(host, port)
@@ -54,3 +56,11 @@ class Pandora(object):
       expr = "$('%s:visible')[0]?false:true" % self.SEL_PAUSE
       r = self.tab.send_command("Runtime.evaluate", expression=expr)
       return r["result"]["result"]["value"]
+
+   def thumb_up(self):
+      expr = self.click_str(self.SEL_THUMB_UP)
+      self.tab.send_command("Runtime.evaluate", expression=expr)
+
+   def thumb_down(self):
+      expr = self.click_str(self.SEL_THUMB_DOWN)
+      self.tab.send_command("Runtime.evaluate", expression=expr)

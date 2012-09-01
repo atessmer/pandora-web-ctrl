@@ -15,7 +15,9 @@ Commands:
   play_pause           Toggle play/pause state
   skip                 Skip to the next song
   is_playing           Test whether the music is currently playing
-  is_paused            Test whether the music is currently paused"""
+  is_paused            Test whether the music is currently paused
+  thumb_up             Give the current song a thumb up
+  thumb_down           Give the current song a thumb down"""
 
    parser = OptionParser(usage=usage, version=".".join(map(str,__version__)))
    parser.add_option("-H", "--host", type="string", default="localhost",
@@ -43,6 +45,10 @@ Commands:
          print p.is_playing()
       elif cmd == "is_paused":
          print p.is_paused()
+      elif cmd == "thumb_up":
+         p.thumb_up()
+      elif cmd == "thumb_down":
+         p.thumb_down()
       else:
          print "Unknown cmd '%s'" % cmd
          exit(1)
