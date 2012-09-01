@@ -25,36 +25,36 @@ class Pandora(object):
    def __exit__(self, exc_type, exc_value, traceback):
       self.tab.__exit__(exc_type, exc_value, traceback)
 
-   def click_str(self, button):
+   def _click_str(self, button):
       return "$('%s').click()" % button
 
-   def eval(self, expr):
+   def _eval(self, expr):
       return self.tab.send_command("Runtime.evaluate", expression=expr)
 
    def play(self):
-      self.eval(self.click_str(self.SEL_PLAY))
+      self._eval(self._click_str(self.SEL_PLAY))
 
    def pause(self):
-      self.eval(self.click_str(self.SEL_PAUSE))
+      self._eval(self._click_str(self.SEL_PAUSE))
 
    def play_pause(self):
-      play = self.click_str(self.SEL_PLAY)
-      pause = self.click_str(self.SEL_PAUSE)
-      self.eval("$('%s:visible')[0] ? %s : %s" % (self.SEL_PLAY, play, pause))
+      play = self._click_str(self.SEL_PLAY)
+      pause = self._click_str(self.SEL_PAUSE)
+      self._eval("$('%s:visible')[0] ? %s : %s" % (self.SEL_PLAY, play, pause))
 
    def skip(self):
-      self.eval(self.click_str(self.SEL_SKIP))
+      self._eval(self._click_str(self.SEL_SKIP))
 
    def is_playing(self):
-      r = self.eval("$('%s:visible')[0]?false:true" % self.SEL_PLAY)
+      r = self._eval("$('%s:visible')[0]?false:true" % self.SEL_PLAY)
       return r["result"]["result"]["value"]
 
    def is_paused(self):
-      r = self.eval("$('%s:visible')[0]?false:true" % self.SEL_PAUSE)
+      r = self._eval("$('%s:visible')[0]?false:true" % self.SEL_PAUSE)
       return r["result"]["result"]["value"]
 
    def thumb_up(self):
-      self.eval(self.click_str(self.SEL_THUMB_UP))
+      self._eval(self._click_str(self.SEL_THUMB_UP))
 
    def thumb_down(self):
-      self.eval(self.click_str(self.SEL_THUMB_DOWN))
+      self._eval(self._click_str(self.SEL_THUMB_DOWN))
