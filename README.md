@@ -1,4 +1,4 @@
 pandora-web-ctrl
 ================
 
-Control Pandora's website from the command line
+Control Pandora's web interface from the command line
