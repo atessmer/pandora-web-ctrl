@@ -44,3 +44,13 @@ class Pandora(object):
    def skip(self):
       url = "javascript:" + self.click_str(self.SEL_SKIP)
       self.tab.send_command("Page.navigate", url=url)
+
+   def is_playing(self):
+      expr = "$('%s:visible')[0]?false:true" % self.SEL_PLAY
+      r = self.tab.send_command("Runtime.evaluate", expression=expr)
+      return r["result"]["result"]["value"]
+
+   def is_paused(self):
+      expr = "$('%s:visible')[0]?false:true" % self.SEL_PAUSE
+      r = self.tab.send_command("Runtime.evaluate", expression=expr)
+      return r["result"]["result"]["value"]

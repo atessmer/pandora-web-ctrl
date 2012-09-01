@@ -16,6 +16,10 @@ def main():
          p.play_pause()
       elif cmd == "skip":
          p.skip()
+      elif cmd == "is_playing":
+         print p.is_playing()
+      elif cmd == "is_paused":
+         print p.is_paused()
       else:
          print "Unknown cmd '%s'" % cmd
          exit(1)
